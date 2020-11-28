@@ -28,6 +28,9 @@ Master
 
 Slave
 
+<div align="center"><img src="img/slave/mhc3.png" width="80%" alt="mhc3"></div>
+
+
 各Periheralをクリックすると右側に設定画面が現れるので, 各自設定していく.
 
 ### Save MHC
