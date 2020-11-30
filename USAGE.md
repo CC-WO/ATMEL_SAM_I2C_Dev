@@ -12,7 +12,7 @@ Master
 
 Slave
 
-`./MPLABX/ATMEL_SAM_L10_I2C_Master/firmware/ATMEL_SAM_L10_I2C_Master.X`
+`./MPLABX/ATMEL_SAM_L10_I2C_Slave/firmware/ATMEL_SAM_L10_I2C_Slave.X`
 
 ## MPLAB® Harmony Configurator v3
 
@@ -127,8 +127,6 @@ Default
 
 MHC -> MHC -> Pin Configuration
 
-PackageをQFN64からTQFP64に変更する.
-
 以下のピン設定を行う. 設定を変更するピンのみ記載. (-：設定不可)
 
 |No.|Pin ID|Custom Name    |Function       |Mode    |Direction|Latch|Pull Up|Pull Down|Drive Strength|
@@ -145,7 +143,7 @@ PackageをQFN64からTQFP64に変更する.
 
 ### SERCOM1(as I2C) Settings
 
-Available Components -> Periherals -> SERCO1 -> SERCOM1を選択.
+Available Components -> Periherals -> SERCOM -> SERCOM1を選択.
 
 SERCOM1を以下のように設定する.
 
@@ -180,7 +178,7 @@ MHC3でコード生成されるmainファイルをNo.0とする. 以降, 機能�
 |0  |[main.c](MPLABX/ATMEL_SAM_D21_I2C_Master/firmware/src/main.c)                                  |[main.c](MPLABX/ATMEL_SAM_L10_I2C_Slave/firmware/src/main.c)                                 |Default                                          |
 |1  |[main_i2c_master_map1.c](MPLABX/ATMEL_SAM_D21_I2C_Master/firmware/src/main_i2c_master_map1.c)  |[main_i2c_slave_map1.c](MPLABX/ATMEL_SAM_L10_I2C_Slave/firmware/src/main_i2c_slave_map1.c)   |EEPROM Address:1Byte,  Size:256Bytes             |
 |2  |[main_i2c_master_map2.c](MPLABX/ATMEL_SAM_D21_I2C_Master/firmware/src/main_i2c_master_map1.c)  |[main_i2c_slave_map2.c](MPLABX/ATMEL_SAM_L10_I2C_Slave/firmware/src/main_i2c_slave_map2.c)   |EEPROM Address:2Bytes, Size:512Bytes             |
-|2  |[main_i2c_master_app.c](MPLABX/ATMEL_SAM_D21_I2C_Master/firmware/src/main_i2c_master_app.c)    |[main_i2c_slave_app.c](MPLABX/ATMEL_SAM_L10_I2C_Slave/firmware/src/main_i2c_slave_app.c)     |App Version EEPROM Address:1Bytes, Size:256Bytes |
+|3  |[main_i2c_master_app.c](MPLABX/ATMEL_SAM_D21_I2C_Master/firmware/src/main_i2c_master_app.c)    |[main_i2c_slave_app.c](MPLABX/ATMEL_SAM_L10_I2C_Slave/firmware/src/main_i2c_slave_app.c)     |App Version EEPROM Address:1Bytes, Size:256Bytes |
 
 ### No.1
 
@@ -200,4 +198,4 @@ No.1と結果は同じ.
 
 ### No.3
 
-No.3はNo.1をAppにしたもの. MasterプロジェクトのSource Filesに`i2cApp.c`, Header Filesに`i2cApp.h`を追加する. SlaveプロジェクトのSource Filesに`eepromEmu.c`, Header Filesに`eepromEmu.h`を追加する.
+No.3はNo.1をApp化したもの. MasterプロジェクトのSource Filesに`i2cApp.c`, Header Filesに`i2cApp.h`を追加する. SlaveプロジェクトのSource Filesに`eepromEmu.c`, Header Filesに`eepromEmu.h`を追加する.
