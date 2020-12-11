@@ -35,6 +35,9 @@
 #define APP_ACK_DATA_LENGTH                 1
 #define APP_RECEIVE_DUMMY_WRITE_LENGTH      1
 
+#define DEVICE_VERIFY_ENABLE                1
+#define DEVICE_VERIFY_DISABLE               0
+
 #define VERIFY_ENABLE                       1
 #define VERIFY_DISABLE                      0
 
@@ -66,6 +69,7 @@ typedef enum
 } APP_TRANSFER_STATUS;
 
 void APP_I2CCallback(uintptr_t context );
+bool I2C_APP_DEVICE_VERIFY(uint8_t DEVICE_ADDR, uint8_t DEVICE_CHECK_REPEAT);
 void I2C_APP_TX(uint8_t DEVICE_ADDR, uint8_t MEMORY_ADDR, uint8_t *TRANSMIT_DATA, uint8_t TRANSMIT_DATA_LENGTH, uint8_t VERIFY);
 void I2C_APP_RX(uint8_t DEVICE_ADDR, uint8_t MEMORY_ADDR, uint8_t *RECIEVE_DATA, uint8_t RECEIVE_DATA_LENGTH);
 

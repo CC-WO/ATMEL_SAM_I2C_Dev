@@ -66,6 +66,74 @@ void APP_I2CCallback(uintptr_t context )
     }
 }
 
+bool I2C_APP_DEVICE_VERIFY(uint8_t DEVICE_ADDR, uint8_t DEVICE_CHECK_REPEAT) {
+    APP_STATES state = APP_STATE_EEPROM_STATUS_VERIFY;
+    volatile APP_TRANSFER_STATUS transferStatus = APP_TRANSFER_STATUS_ERROR;
+    uint8_t ackData = 0;
+    uint8_t repeat = 0;
+    bool success = 0;
+
+    while(1)
+    {
+        if (state == APP_STATE_IDLE) {
+            break;
+        }
+        switch (state)
+        {
+            case APP_STATE_IDLE:
+            {
+                state = APP_STATE_IDLE;
+                break;
+            }
+            case APP_STATE_EEPROM_STATUS_VERIFY:
+            {
+                /* Register the TWIHS Callback with transfer status as context */
+                SERCOM2_I2C_CallbackRegister( APP_I2CCallback, (uintptr_t)&transferStatus );
+
+               /* Verify if EEPROM is ready to accept new requests */
+                transferStatus = APP_TRANSFER_STATUS_IN_PROGRESS;
+                SERCOM2_I2C_Write(DEVICE_ADDR, &ackData, APP_ACK_DATA_LENGTH);
+
+                state = APP_STATE_EEPROM_CHECK_INTERNAL_WRITE_STATUS;
+                break;
+            }
+            case APP_STATE_EEPROM_CHECK_INTERNAL_WRITE_STATUS:
+            {
+                if (transferStatus == APP_TRANSFER_STATUS_SUCCESS)
+                {
+                    state = APP_STATE_XFER_SUCCESSFUL;
+                }
+                else if (transferStatus == APP_TRANSFER_STATUS_ERROR)
+                {
+                    /* EEPROM's internal write cycle is not complete. Keep checking. */
+                    transferStatus = APP_TRANSFER_STATUS_IN_PROGRESS;
+                    SERCOM2_I2C_Write(DEVICE_ADDR, &ackData, APP_ACK_DATA_LENGTH);
+                    if (repeat == DEVICE_CHECK_REPEAT) {
+                        state = APP_STATE_XFER_ERROR;
+                    }
+                    repeat++;
+                }
+                break;
+            }
+            case APP_STATE_XFER_SUCCESSFUL:
+            {
+                success = 1;
+                state = APP_STATE_IDLE;
+                break;
+            }
+            case APP_STATE_XFER_ERROR:
+            {
+                success = 0;
+                state = APP_STATE_IDLE;
+                break;
+            }   
+            default: break;
+        }
+    }
+
+    return success;
+}
+
 void I2C_APP_TX(uint8_t DEVICE_ADDR, uint8_t MEMORY_ADDR, uint8_t *TRANSMIT_DATA, uint8_t TRANSMIT_DATA_LENGTH, uint8_t VERIFY)
 {
     // printf("IIC_APP_TX\r\n");
