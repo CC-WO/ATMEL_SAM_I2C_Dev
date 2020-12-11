@@ -4,8 +4,8 @@
 
 
 project: ATMEL_SAM_D21_I2C_Master
-creation_date: 2020-11-28T18:38:06.810+09:00[Asia/Tokyo]    # ISO 8601 format: https://www.w3.org/TR/NOTE-datetime
-operating_system: Mac OS X
+creation_date: 2020-12-10T18:53:47.808+09:00[Asia/Tokyo]    # ISO 8601 format: https://www.w3.org/TR/NOTE-datetime
+operating_system: Windows 10
 mhc_mode: IDE            # [IDE|Standalone|Headless]
 mplabx_version: v5.45        # if MPLAB X plugin only
 plugin_version: v3.6.1        # if MPLAB X plugin only

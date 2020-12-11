@@ -191,11 +191,11 @@
         <platformTool>EdbgTool</platformTool>
         <languageToolchain>XC32</languageToolchain>
         <languageToolchainVersion>2.50</languageToolchainVersion>
-        <platform>4</platform>
+        <platform>3</platform>
       </toolsSet>
       <packs>
         <pack name="CMSIS" vendor="ARM" version="5.4.0"/>
-        <pack name="SAML10_DFP" vendor="Microchip" version="3.5.87"/>
+        <pack name="SAML10_DFP" vendor="Microchip" version="3.4.85"/>
       </packs>
       <ScriptingSettings>
       </ScriptingSettings>
