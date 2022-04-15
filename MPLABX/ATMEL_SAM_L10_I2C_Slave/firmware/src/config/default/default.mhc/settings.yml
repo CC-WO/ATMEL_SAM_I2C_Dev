@@ -5,10 +5,10 @@ frameworkPath: ../../../../../MPLABX/Harmony3
 processor: ATSAML10E16A
 projectName: ATMEL_SAM_L10_I2C_Slave
 settings:
-  PackageFilter: motor_control;core_apps_sam_a5d2;touch_apps;crypto;core_apps_sam_d21_da1;crypto_apps_large_hash;core_apps_sam_9x60;csp_apps_sam_l10_l11;csp_apps_sam_e70_s70_v70_v71;net;csp_apps_sam_d5x_e5x;core_apps_sam_ha1;core;bootloader_apps_usb;csp_apps_sam_ha1;touch;x2c;core_apps_sam_rh71;core_apps_sam_d5x_e5x;bootloader_apps_sdcard;csp_apps_pic32mz_ef;gfx_apps;bootloader_apps_uart;core_apps_pic32mz_ef;bootloader;ethercat;core_apps_pic32mz_w1;csp_apps_sam_l22;core_apps_pic32cm_mc00;csp_apps_sam_d10;core_apps_sam_d20;crypto_apps_speed_test;csp_apps_sam_d11;csp_apps_sam_d21_da1;csp_apps_sam_d20;bsp;csp_apps_pic32mz_w1;azure-rtos-threadx;core_apps_sam_l22;core_apps_sam_l10_l11;quick_docs;usb;csp_apps_sam_c20_c21;audio;core_apps_pic32mz_da;bootloader_apps_ethernet;wireless;bt;cryptoauthlib;csp;cryptoauthlib_apps;csp_apps_sam_9x60;csp_apps_pic32mz_da;aerospace;csp_apps_sam_g55;reference_apps;csp_apps_pic32cm_mc00;core_apps_sam_g55;csp_apps_pic32mk;micrium_ucos3;core_apps_pic32mx;gfx;classb_sam_e5x_d5x;bootloader_apps_i2c;crypto_apps_encrypt_decrypt;csp_apps_sam_l21;csp_apps_sam_rh71;core_apps_sam_l21;aws_cloud;core_apps_sam_c20_c21;csp_apps_pic32mx;core_apps_pic32mk;core_apps_sam_e70_s70_v70_v71;
+  PackageFilter: bsp;core;core_apps_sam_d21_da1;core_apps_sam_l10_l11;crypto;crypto_apps_encrypt_decrypt;crypto_apps_large_hash;crypto_apps_speed_test;csp;csp_apps_sam_d21_da1;csp_apps_sam_l10_l11;quick_docs;touch;touch_apps;usb;
   FORCE_OPTIMIZATION: 'false'
   GENERATE_BACKUP: 'true'
   TRUSTZONE: 'false'
-  CMSISPath: ./dev_packs/arm/CMSIS/5.7.0
+  CMSISPath: .\dev_packs\arm\CMSIS\5.7.0
   MERGE_STRATEGY: USER_ALL
-  DFPPath: ./dev_packs/Microchip/SAML10_DFP/3.3.82/atdf/ATSAML10E16A.atdf
+  DFPPath: .\dev_packs\Microchip\SAML10_DFP\3.3.82\atdf\ATSAML10E16A.atdf

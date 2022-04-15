@@ -126,7 +126,7 @@ bool I2C_APP_DEVICE_VERIFY(uint8_t DEVICE_ADDR, uint8_t DEVICE_CHECK_REPEAT) {
                 success = 0;
                 state = APP_STATE_IDLE;
                 break;
-            }   
+            }
             default: break;
         }
     }
@@ -150,11 +150,9 @@ void I2C_APP_TX(uint8_t DEVICE_ADDR, uint8_t MEMORY_ADDR, uint8_t *TRANSMIT_DATA
     txData[0] = MEMORY_ADDR;
     memcpy(&txData[APP_RECEIVE_DUMMY_WRITE_LENGTH], TRANSMIT_DATA, TRANSMIT_DATA_LENGTH);
 
-    /*
-    for (i = 0; i < APP_RECEIVE_DUMMY_WRITE_LENGTH+MAX_TX_SIZE; i++) {
-        printf("txData[%d]: 0x%X\r\n", i, txData[i]);
-    }
-    */
+    // for (i = 0; i < APP_RECEIVE_DUMMY_WRITE_LENGTH+MAX_TX_SIZE; i++) {
+    //     printf("txData[%d]: 0x%X\r\n", i, txData[i]);
+    // }
 
     while(1)
     {
@@ -254,7 +252,7 @@ void I2C_APP_TX(uint8_t DEVICE_ADDR, uint8_t MEMORY_ADDR, uint8_t *TRANSMIT_DATA
                 break;
 
             case APP_STATE_VERIFY:
-                if (memcpy(&txData[APP_RECEIVE_DUMMY_WRITE_LENGTH], &rxData[0], rxDataLength) != 0) {
+                if (memcmp(&txData[APP_RECEIVE_DUMMY_WRITE_LENGTH], &rxData[0], rxDataLength) == 0) {
                     /* It means received data is not same as transmitted data */
                     state = APP_STATE_XFER_SUCCESSFUL;
                 } else {
@@ -266,7 +264,10 @@ void I2C_APP_TX(uint8_t DEVICE_ADDR, uint8_t MEMORY_ADDR, uint8_t *TRANSMIT_DATA
             case APP_STATE_XFER_SUCCESSFUL:
             {
                 LED_ON();
-                // printf("XFER SUCCESS\r\n");
+                // for (i = 0; i < APP_RECEIVE_DUMMY_WRITE_LENGTH+MAX_TX_SIZE; i++) {
+                //     printf("txData[%d]: 0x%X\r\n", i, txData[i]);
+                // }
+                printf("XFER SUCCESS\r\n");
                 printf("DEVICE: 0x%02X, ADR: 0x%02X, TX: 0x%02X, RX: 0x%02X\r\n", DEVICE_ADDR, MEMORY_ADDR, txData[APP_RECEIVE_DUMMY_WRITE_LENGTH+0], rxData[0]);
                 state = APP_STATE_IDLE;
                 break;
@@ -274,7 +275,11 @@ void I2C_APP_TX(uint8_t DEVICE_ADDR, uint8_t MEMORY_ADDR, uint8_t *TRANSMIT_DATA
             case APP_STATE_XFER_ERROR:
             {
                 LED_OFF();
-                // printf("XFER ERROR\r\n");
+                // for (i = 0; i < APP_RECEIVE_DUMMY_WRITE_LENGTH+MAX_TX_SIZE; i++) {
+                //     printf("txData[%d]: 0x%X\r\n", i, txData[i]);
+                // }
+                printf("XFER ERROR\r\n");
+                printf("DEVICE: 0x%02X, ADR: 0x%02X, TX: 0x%02X, RX: 0x%02X\r\n", DEVICE_ADDR, MEMORY_ADDR, txData[APP_RECEIVE_DUMMY_WRITE_LENGTH+0], rxData[0]);
                 state = APP_STATE_IDLE;
                 break;
             }
@@ -368,6 +373,7 @@ void I2C_APP_RX(uint8_t DEVICE_ADDR, uint8_t MEMORY_ADDR, uint8_t *RECIEVE_DATA,
             case APP_STATE_XFER_SUCCESSFUL:
             {
                 LED_ON();
+                printf("XFER SUCCESS\r\n");
                 printf("DEVICE: 0x%02X, ADR: 0x%02X, DATA: 0x%02X\r\n", DEVICE_ADDR, MEMORY_ADDR, rxData[0]);
                 memcpy(RECIEVE_DATA, rxData, rxDataLength);
                 state = APP_STATE_IDLE;

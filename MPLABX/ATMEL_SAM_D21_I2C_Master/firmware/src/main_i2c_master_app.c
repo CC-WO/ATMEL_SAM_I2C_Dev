@@ -39,24 +39,11 @@ int main ( void )
 {
     uint8_t address = 0x00;
     uint8_t exist[255] = {0};
-    
-    uint8_t led        = 0x00;
-    uint8_t bright     = 0x00;
-    uint8_t enc_sw     = 0x00;
-    uint8_t enc_rotary = 0x00;
-    uint8_t adc_msb    = 0x00;
-    uint8_t adc_lsb    = 0x00;
-    uint8_t led_top    = 0x00;
-    uint8_t led_mid    = 0x00;
-    uint8_t led_btm    = 0x00;
-    uint8_t sw0        = 0x00;
-    uint8_t sw1        = 0x00;
-    uint8_t sw2        = 0x00;
-    uint8_t sw3        = 0x00;
+    // uint8_t txData = 0;
 
     /* Initialize all modules */
     SYS_Initialize ( NULL );
-    
+
     // SYSTICK Settings
     SYSTICK_TimerStart();
 
@@ -69,7 +56,7 @@ int main ( void )
             exist[address] = 0x00;
         }
     }
-    
+
     printf("    00 01 02 03 04 05 06 07 08 09 0a 0b 0c 0d 0e 0f\r\n");
     printf("00: %2x %2x %2x %2x %2x %2x %2x %2x %2x %2x %2x %2x %2x %2x %2x %2x\r\n",
             exist[0x00], exist[0x01], exist[0x02], exist[0x03], exist[0x04], exist[0x05], exist[0x06], exist[0x07],
@@ -96,41 +83,33 @@ int main ( void )
             exist[0x70], exist[0x71], exist[0x72], exist[0x73], exist[0x74], exist[0x75], exist[0x76], exist[0x77],
             exist[0x78], exist[0x79], exist[0x7a], exist[0x7b], exist[0x7c], exist[0x7d], exist[0x7e], exist[0x7f]);
 
+    // // txData = 0xC1; // 48k
+    // txData = 0xC2; // 96k
+    // I2C_APP_TX(0x4C, 0x40, &txData, 1, 1);
+    // // txData = 0x07; // 48k
+    // txData = 0x09; // 96k
+    // I2C_APP_TX(0x4C, 0x41, &txData, 1, 1);
+    // txData = 0x00;
+    // I2C_APP_TX(0x4C, 0x42, &txData, 1, 1);
+    // I2C_APP_TX(0x4C, 0x43, &txData, 1, 1);
+    // I2C_APP_TX(0x4C, 0x44, &txData, 1, 1);
+    // I2C_APP_TX(0x4C, 0x45, &txData, 1, 1);
+    // I2C_APP_TX(0x4C, 0x46, &txData, 1, 1);
+    // txData = 0xFF;
+    // I2C_APP_TX(0x4C, 0x47, &txData, 1, 1);
+    // I2C_APP_TX(0x4C, 0x48, &txData, 1, 1);
+    // I2C_APP_TX(0x4C, 0x49, &txData, 1, 1);
+    // I2C_APP_TX(0x4C, 0x4A, &txData, 1, 1);
+    // I2C_APP_TX(0x4C, 0x4B, &txData, 1, 1);
+    // I2C_APP_TX(0x4C, 0x4C, &txData, 1, 1);
+    // I2C_APP_TX(0x4C, 0x4D, &txData, 1, 1);
+    // I2C_APP_TX(0x4C, 0x4E, &txData, 1, 1);
+    // I2C_APP_TX(0x4C, 0x4F, &txData, 1, 1);
+
     while ( true )
     {
-        // PNVOL
-        I2C_APP_TX(0x40, 0x00, &led, 1, 1);
-        I2C_APP_TX(0x40, 0x10, &bright, 1, 1);
-        I2C_APP_RX(0x40, 0x01, &enc_sw, 1);
-        I2C_APP_RX(0x40, 0x02, &enc_rotary, 1);
-        I2C_APP_RX(0x40, 0x03, &adc_msb, 1);
-        I2C_APP_RX(0x40, 0x04, &adc_lsb, 1);
-        // PNLED
-        I2C_APP_TX(0x20, 0x00, &led_top, 1, 1);
-        I2C_APP_TX(0x20, 0x01, &led_mid, 1, 1);
-        I2C_APP_TX(0x20, 0x02, &led_btm, 1, 1);
-        I2C_APP_TX(0x20, 0x10, &bright, 1, 1);
-        // PNSW
-        I2C_APP_RX(0x60, 0x00, &sw0, 1);
-        I2C_APP_RX(0x60, 0x01, &sw1, 1);
-        I2C_APP_RX(0x60, 0x02, &sw2, 1);
-        I2C_APP_RX(0x60, 0x03, &sw3, 1);
-        I2C_APP_RX(0x60, 0x04, &enc_sw, 1);
-        I2C_APP_RX(0x60, 0x05, &enc_rotary, 1);
-        printf("\r\033[16A");
-        led++;
-        led_top++;
-        led_mid++;
-        led_btm++;
-        bright++;
-        if (bright==100) bright = 0;
-        if (led==8) led=0;
-        if (led_top==255) led_top = 0;
-        if (led_mid==255) led_mid = 0;
-        if (led_btm==255) led_btm = 0;
-        
         SYSTICK_DelayMs(100);
-        
+
         /* Maintain state machines of all polled MPLAB Harmony modules. */
         SYS_Tasks ( );
     }
